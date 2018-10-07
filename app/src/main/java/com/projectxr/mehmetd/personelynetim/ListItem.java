@@ -4,7 +4,6 @@ public class ListItem {
 
     private String productImage;
     private String firmaName;
-    private int id;
     private String mekan_id;
 
     public ListItem(String productImage, String firmaName, String mekan_id) {

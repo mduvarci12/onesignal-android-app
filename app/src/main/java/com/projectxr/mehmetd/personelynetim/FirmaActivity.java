@@ -18,6 +18,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+
 class Firmam
 {
     public String firmaAdı;
@@ -25,11 +27,11 @@ class Firmam
     public String foto;
 }
 
-
 public class FirmaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private List<ListItem> listItems;
 
     public List<Firmam> firmaArray;
 
@@ -44,7 +46,6 @@ public class FirmaActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(adapter);
 
         listItems = new ArrayList<>();
 
@@ -79,8 +80,9 @@ Log.d("response", "basarili");
 
                    listItems.add(list);
 
-
+                    adapter = new MyAdapter(listItems, getApplicationContext());
                //    firmaArray.add(firma);
+                     recyclerView.setAdapter(adapter);
 
                    Log.d("tag", IP.getMekanFoto());
                }
