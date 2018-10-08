@@ -13,31 +13,15 @@
         android:layout_height="179dp"
 
 
-        android:layout_below="@+id/recyclerViewCards"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="119dp"
         android:background="#0886c7"
         android:ems="10"
         android:gravity="top|left"
         android:hint="Mesajınız"
         android:inputType="textPersonName"
         android:textColor="#fff" />
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerViewCards"
-        android:orientation="horizontal">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <Spinner
-        android:id="@+id/spinnerTopic"
-        android:layout_width="280dp"
-        android:layout_height="36dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="125dp" />
-
-
 
 
     <ImageButton
@@ -48,15 +32,5 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/button_send" />
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="63dp"
-        android:layout_height="37dp"
-
-        android:layout_alignTop="@+id/spinnerTopic"
-        android:text="Konu:"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
 </RelativeLayout>

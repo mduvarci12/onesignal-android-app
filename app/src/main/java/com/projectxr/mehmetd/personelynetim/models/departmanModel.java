@@ -1,16 +1,17 @@
 package com.projectxr.mehmetd.personelynetim.models;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class departmanModel {
-    private List<String>  postDepartman;
+    private Array postDepartman;
 
-    public departmanModel(List<String> postDepartman) {
+    public departmanModel(Array postDepartman) {
         this.postDepartman = postDepartman;
     }
 
-    public List<String> getPostDepartman() {
+    public Array getPostDepartman() {
         return postDepartman;
     }
 }
