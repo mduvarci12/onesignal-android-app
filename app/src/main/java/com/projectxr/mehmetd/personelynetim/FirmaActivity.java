@@ -63,7 +63,7 @@ public class FirmaActivity extends AppCompatActivity {
            public void onResponse(Call<Item> call, Response<Item> response) {
                int a=0;
    //            Item f =response.body();
-Log.d("response", "basarili");
+            Log.d("response", response.body().getFirmalar().toString());
            //    List<ItemResponse> firmalar = response.body().getFirmalar();
                List<ItemResponse> items = response.body().getFirmalar();
                for (a=0;a<items.size();a++)
