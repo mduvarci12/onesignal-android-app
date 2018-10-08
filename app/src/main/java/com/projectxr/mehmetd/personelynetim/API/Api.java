@@ -1,7 +1,8 @@
 package com.projectxr.mehmetd.personelynetim.API;
 
-import com.projectxr.mehmetd.personelynetim.Item;
+import com.projectxr.mehmetd.personelynetim.models.Item;
 import com.projectxr.mehmetd.personelynetim.models.LoginResponse;
+import com.projectxr.mehmetd.personelynetim.models.departmanModel;
 import com.projectxr.mehmetd.personelynetim.models.playerId;
 
 import okhttp3.ResponseBody;
@@ -39,6 +40,9 @@ public interface Api {
     Call<Item> getFirma(
             @Field("user_key") String user_key
     );
-
+    @FormUrlEncoded
+    @POST("users/departmanlar")
+    Call<departmanModel> postDepartman(
+            @Field("users/departmanlar") String departmanSec);
 
 }

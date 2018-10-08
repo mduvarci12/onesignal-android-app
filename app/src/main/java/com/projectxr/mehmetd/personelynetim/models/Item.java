@@ -1,9 +1,9 @@
-package com.projectxr.mehmetd.personelynetim;
+package com.projectxr.mehmetd.personelynetim.models;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.projectxr.mehmetd.personelynetim.ItemResponse;
+import com.projectxr.mehmetd.personelynetim.models.ItemResponse;
 
 
 public class Item {

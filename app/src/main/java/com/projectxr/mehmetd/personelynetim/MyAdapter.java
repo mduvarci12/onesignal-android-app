@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.projectxr.mehmetd.personelynetim.models.LoginResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,6 +19,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     List<ListItem> listItems;
     private Context context;
+    public String k;
 
     public MyAdapter(List<ListItem> listItems, Context context) {
         this.listItems = listItems;
@@ -32,10 +33,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 .inflate(R.layout.card, parent, false);
         return new ViewHolder(v);
 
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 final ListItem listItem= listItems.get(position );
        //  holder.textViewName.setText(listItem.getProductImage());
          holder.textViewImage.setText(listItem.getFirmaName());
@@ -44,14 +46,8 @@ final ListItem listItem= listItems.get(position );
                 .load(listItem.getProductImage())
                 .into(holder.imageView);
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
- String mekanID = listItem.getMekan_id();
-                Intent i = new Intent(context,FirmaSec.class);
-                context.startActivity(i);
-            }
-        });
+       k =  listItem.getMekan_id();
+
     }
 
     @Override
@@ -65,10 +61,13 @@ final ListItem listItem= listItems.get(position );
         public ImageView imageView;
         public TextView mekanText;
 
+
+
         public LinearLayout linearLayout;
 
 
         public ViewHolder(@NonNull View itemView) {
+
 
             super(itemView);
             textViewImage = itemView.findViewById(R.id.firmaName);
@@ -76,6 +75,20 @@ final ListItem listItem= listItems.get(position );
             imageView = itemView.findViewById(R.id.productImage);
 
             linearLayout = itemView.findViewById(R.id.linearLayout);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+
+                        Intent intent = new Intent(context, DepartmanSec.class);
+                        intent.putExtra("mekanID",k);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
+                }
+
+            });
 
 
         }

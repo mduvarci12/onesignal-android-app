@@ -1,16 +1,16 @@
 package com.projectxr.mehmetd.personelynetim;
 
 import android.content.Intent;
-import android.os.Debug;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.widget.Adapter;
 
 import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
+import com.projectxr.mehmetd.personelynetim.models.Item;
+import com.projectxr.mehmetd.personelynetim.models.ItemResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +83,7 @@ Log.d("response", "basarili");
                     adapter = new MyAdapter(listItems, getApplicationContext());
                //    firmaArray.add(firma);
                      recyclerView.setAdapter(adapter);
+
 
                    Log.d("tag", IP.getMekanFoto());
                }

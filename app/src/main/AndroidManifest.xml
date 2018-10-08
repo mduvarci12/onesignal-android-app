@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".SendActivity" />
         <activity android:name=".FirmaActivity" />
-        <activity android:name=".FirmaSec"></activity>
+        <activity android:name=".DepartmanSec"></activity>
     </application>
 
 </manifest>

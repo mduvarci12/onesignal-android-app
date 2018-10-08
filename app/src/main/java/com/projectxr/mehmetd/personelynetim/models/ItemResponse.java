@@ -1,4 +1,4 @@
-package com.projectxr.mehmetd.personelynetim;
+package com.projectxr.mehmetd.personelynetim.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -24,10 +24,7 @@ public class ItemResponse {
      */
     public ItemResponse() {
     }
-
     /**
-     *
-
      * @param id
      * @param mekanFoto
      * @param title
