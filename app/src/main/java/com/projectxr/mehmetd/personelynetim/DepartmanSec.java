@@ -1,8 +1,11 @@
 package com.projectxr.mehmetd.personelynetim;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -34,7 +37,7 @@ public class DepartmanSec extends AppCompatActivity {
 
 
 
-        String mekanID = getIntent().getStringExtra("mekanID");
+        final String mekanID = getIntent().getStringExtra("mekanID");
 
         System.out.print(mekanID);
         Call<String> call = RetrofitClient.getInstance().getApi().postDepartman(mekanID);
@@ -49,7 +52,7 @@ public class DepartmanSec extends AppCompatActivity {
                 String dsa = asd.replace("]", "");
                 String das = dsa.replace("\"","");
 
-                String[] strings = das.split(",");
+                final String[] strings = das.split(",");
 
 
                 String[] string;
@@ -62,15 +65,23 @@ public class DepartmanSec extends AppCompatActivity {
                 Log.e("string arrayi2", strings[2]);
                 Log.e("string arrayisize"," "+  strings.length);
 
-                ArrayAdapter<String > adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.activity_firma_sec, strings);
-                ListView listView = findViewById(R.id.listView1);
-                listView.setAdapter(adapter);
+                ListView listView = findViewById(R.id.listview);
+                ArrayAdapter<String > adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1, strings);
+               listView.setAdapter(adapter);
+               listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                   @Override
+                   public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                       // mekanID
+                    Log.e("position",strings[position]);
+                       Intent i = new Intent(getApplicationContext(),SendActivity.class);
+                       i.putExtra("mekanID", mekanID);
+                       i.putExtra("user_type", strings[position]);
+                       startActivity(i);
 
 
+                   }
 
-
-
-
+               });
 
             }
 

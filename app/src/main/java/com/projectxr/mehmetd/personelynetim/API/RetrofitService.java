@@ -46,4 +46,12 @@ public interface RetrofitService {
     Call<String> postDepartman(
             @Field("firma_id") String firma_id);
 
+    @FormUrlEncoded
+    @POST("/bildlirimler")
+    Call<String> postMessage(
+            @Field("context") String context,
+            @Field("user_type") String user_type,
+            @Field("firma_id") String firma_id
+
+            );
 }

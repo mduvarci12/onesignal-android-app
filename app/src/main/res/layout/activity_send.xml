@@ -30,6 +30,7 @@
         android:layout_height="40dp"
         android:layout_alignBottom="@+id/editText"
         android:layout_centerHorizontal="true"
+        android:onClick="sendMessage2"
         android:src="@drawable/button_send" />
 
 
