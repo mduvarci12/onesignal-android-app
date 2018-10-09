@@ -24,16 +24,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity{
 
-
-
     private EditText editTextEmail, editTextPassword;
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
     private String userKEY;
     private String playerID;
 
-
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +38,6 @@ public class MainActivity extends AppCompatActivity{
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
-
-
-
-        //getImages();
-
-            editTextEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userLogin();
-            }
-        });
-
 
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
@@ -64,10 +48,25 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void idsAvailable(String userId, String registrationId) {
                 if (registrationId != null)
-                playerID=userId;
+                    playerID=userId;
                 System.out.println(playerID + "aqplayeridsi");
             }
         });
+
+        String userName = sharedPreferences.getString("username","no" );
+        String userPassword = sharedPreferences.getString("password","no" );
+        String KEY = sharedPreferences.getString("userKey","no" );
+
+        if(sharedPreferences.getString("username","a") == "a")
+        {
+
+        }else{
+            Intent i = new Intent(MainActivity.this,FirmaActivity.class);
+            i.putExtra("key",KEY);
+            i.putExtra("playerID",playerID);
+            startActivity(i);
+        }
+
     }
 
     public void LoginButton(View view) {
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
     {
 
         final String username = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
         if (username.isEmpty()) {
             editTextEmail.setError("Kullanıcı adı giriniz");
@@ -98,21 +97,34 @@ public class MainActivity extends AppCompatActivity{
             editTextPassword.requestFocus();
             return;
         }
+        if(username.equals("") && !password.equals(""))
+        {
+            Intent i = new Intent(MainActivity.this,FirmaActivity.class);
+            i.putExtra("key",userKEY);
+            startActivity(i);
+        }
+
             Call<LoginResponse> call = RetrofitClient.getInstance().getApi().userLogin(username,password);
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
+                {
                     LoginResponse loginResponse = response.body();
 
-                        if(loginResponse.getKey()!=null){
+                        if(loginResponse.getKey()!=null)
+                        {
                             userKEY= loginResponse.getKey();
                             sharedPreferences.edit().putString("userKey",loginResponse.getKey()).apply();
-                             String myKey = sharedPreferences.getString("userKey","bulunamadı" );
 
-                            Intent i = new Intent(MainActivity.this,FirmaActivity.class);
-                            i.putExtra("key",userKEY);
-                    startActivity(i);
-                } else {Toast.makeText(MainActivity.this," kullanıcı adı veya şifre hatalı", Toast.LENGTH_LONG).show();}
+                            sharedPreferences.edit().putString("username", username).apply();
+                            sharedPreferences.edit().putString("password", password).apply();
+
+                                Intent i = new Intent(MainActivity.this,FirmaActivity.class);
+                                i.putExtra("key",userKEY);
+                                startActivity(i);
+                                  editTextEmail.setText("");
+                             editTextPassword.setText("");
+                        } else {Toast.makeText(MainActivity.this," kullanıcı adı veya şifre hatalı", Toast.LENGTH_LONG).show();}
                 }
 
                 @Override
@@ -120,38 +132,10 @@ public class MainActivity extends AppCompatActivity{
                     t.printStackTrace();
                 }
 
-            });
+                            }       );
         String myKey = sharedPreferences.getString("userKey","bulunamadı" );
         userKEY=myKey;
-        Log.d("userKey", userKEY);
-        Log.d("userID", playerID);
-        Call<playerId> call2 = RetrofitClient.getInstance().getApi().setPlayerId(userKEY,playerID);
-        call2.enqueue(new Callback<playerId>() {
-            @Override
-            public void onResponse(Call<playerId> call, Response<playerId> response) {
-              //  System.out.println(userKEY);
-              //  System.out.println(playerID);
 
-            }
-            @Override
-            public void onFailure(Call<playerId> call, Throwable t) {
-
-            }
-        });
-  //  private void getImages(){
-        //mNames.add("Link gelecek");
-        //mIMageUrls.add("isim");
-        //initRecyclerView();
     }
-    /*
-        private void initRecyclerView(){
-        Log.d(TAG, "initRecyclerView: init recyclerview");
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mNames, mImageUrls);
-        recyclerView.setAdapter(adapter);
-    }
-    */
 }

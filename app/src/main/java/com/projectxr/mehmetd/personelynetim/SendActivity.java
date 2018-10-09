@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
 import com.projectxr.mehmetd.personelynetim.models.sonMessage;
@@ -37,7 +38,10 @@ public class SendActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.e("sonResponse", "basarili");
-            }
+                text.setText("");
+                Toast.makeText(getApplicationContext(),"  Gönderildi ", Toast.LENGTH_LONG).show();}
+
+
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
