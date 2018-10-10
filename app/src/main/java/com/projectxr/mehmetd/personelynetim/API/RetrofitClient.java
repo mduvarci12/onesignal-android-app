@@ -11,9 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
-
-  //  private static final String AUTH = "Basic " + Base64.encodeToString(("belalkhan:123456").getBytes(), Base64.NO_WRAP);
-
    public static final String BASE_URL = "http://api.muhattapp.com/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
@@ -55,5 +52,3 @@ public class RetrofitClient {
         return retrofit.create(RetrofitService.class);
     }
 }
-
-

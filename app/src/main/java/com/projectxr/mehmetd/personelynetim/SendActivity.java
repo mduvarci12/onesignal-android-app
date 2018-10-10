@@ -33,22 +33,18 @@ public class SendActivity extends AppCompatActivity {
             String userType = getIntent().getStringExtra("user_type");
         String context = String.valueOf(text.getText());
 
-        Call<String> call = RetrofitClient.getInstance().getApi().postMessage(context,userType,mekanID);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.e("sonResponse", "basarili");
-                text.setText("");
-                Toast.makeText(getApplicationContext(),"  Gönderildi ", Toast.LENGTH_LONG).show();}
+       Call<sonMessage> call = RetrofitClient.getInstance().getApi().postMessage(context,userType,mekanID);
+       call.enqueue(new Callback<sonMessage>() {
+           @Override
+           public void onResponse(Call<sonMessage> call, Response<sonMessage> response) {
+                Log.e(  "tagttag", response.body().getStatus());
+           }
 
+           @Override
+           public void onFailure(Call<sonMessage> call, Throwable t) {
 
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.e("sonResponse", "basarisiz");
-            }
-        });
-
+           }
+       });
     }
 
 

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity{
             public void idsAvailable(String userId, String registrationId) {
                 if (registrationId != null)
                     playerID=userId;
-                System.out.println(playerID + "aqplayeridsi");
+
             }
         });
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
             editTextPassword.requestFocus();
             return;
         }
-        if(username.equals("") && !password.equals(""))
+        if(username != (null))
         {
             Intent i = new Intent(MainActivity.this,FirmaActivity.class);
             i.putExtra("key",userKEY);

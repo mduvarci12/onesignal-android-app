@@ -4,6 +4,7 @@ import com.projectxr.mehmetd.personelynetim.models.Item;
 import com.projectxr.mehmetd.personelynetim.models.LoginResponse;
 import com.projectxr.mehmetd.personelynetim.models.departmanModel;
 import com.projectxr.mehmetd.personelynetim.models.playerId;
+import com.projectxr.mehmetd.personelynetim.models.sonMessage;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,9 +48,9 @@ public interface RetrofitService {
             @Field("firma_id") String firma_id);
 
     @FormUrlEncoded
-    @POST("/bildlirimler")
-    Call<String> postMessage(
-            @Field("context") String context,
+    @POST("/bildirim")
+    Call<sonMessage> postMessage(
+            @Field("content") String context,
             @Field("user_type") String user_type,
             @Field("firma_id") String firma_id
 

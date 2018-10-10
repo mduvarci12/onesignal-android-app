@@ -43,6 +43,8 @@ public class FirmaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_firma);
         SharedPreferences sharedPreferences;
         Intent i = getIntent();
         String id = i.getStringExtra("key");
@@ -63,8 +65,7 @@ public class FirmaActivity extends AppCompatActivity {
         });
 
         getFirmaData();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_firma);
+
 
 
         recyclerView= findViewById(R.id.recyclerView);
@@ -123,12 +124,8 @@ public class FirmaActivity extends AppCompatActivity {
 
 
     public void signoutMethod(View view) {
-        SharedPreferences sharedPreferences;
-        sharedPreferences = this.getSharedPreferences("com..mehmetd.personelynetim", Context.MODE_PRIVATE);
-      sharedPreferences.edit().putString("username", "no").commit();
-        sharedPreferences.edit().putString("password", "no").commit();
-        sharedPreferences.edit().putString( "username","no");
 
+        sharedPreferences = this.getSharedPreferences("com..mehmetd.personelynetim", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.commit();
