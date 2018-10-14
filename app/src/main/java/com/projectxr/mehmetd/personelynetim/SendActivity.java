@@ -26,18 +26,20 @@ public class SendActivity extends AppCompatActivity {
          text = findViewById(R.id.editText);
         String context = String.valueOf(text.getText());
 
+
     }
     public void sendMessage2(View v)
     {
          String mekanID = getIntent().getStringExtra("mekanID");
             String userType = getIntent().getStringExtra("user_type");
         String context = String.valueOf(text.getText());
-
-       Call<sonMessage> call = RetrofitClient.getInstance().getApi().postMessage(context,userType,mekanID);
+        String context2 = text.getText().toString();
+       Call<sonMessage> call = RetrofitClient.getInstance().getApi().postMessage(context2,userType,mekanID);
        call.enqueue(new Callback<sonMessage>() {
            @Override
            public void onResponse(Call<sonMessage> call, Response<sonMessage> response) {
-                Log.e(  "tagttag", response.body().getStatus());
+                text.setText("");
+                Toast.makeText(getApplicationContext(),"Gönderildi",Toast.LENGTH_LONG).show();
            }
 
            @Override

@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
 import com.projectxr.mehmetd.personelynetim.models.Item;
@@ -25,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+
+
 class Firmam
 {
     SharedPreferences sharedPreferences;
@@ -34,7 +38,18 @@ class Firmam
 }
 
 public class FirmaActivity extends AppCompatActivity {
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode== KeyEvent.KEYCODE_BACK)
+        {}
+
+        return false;
+        // Disable back button..............
+    }
+
     SharedPreferences sharedPreferences;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ListItem> listItems;
@@ -45,10 +60,17 @@ public class FirmaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firma);
-        SharedPreferences sharedPreferences;
         Intent i = getIntent();
         String id = i.getStringExtra("key");
         String playerID = i.getStringExtra("playerID");
+        sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
+
+        String username2;
+        username2 = sharedPreferences.getString("txt", ".");
+       username2=  username2.toUpperCase();
+        Toast.makeText(getApplicationContext(),"MuhattAPP'a Hoşgeldin " + username2,Toast.LENGTH_LONG).show();
+
+
 
         Call<playerId> call2 = RetrofitClient.getInstance().getApi().setPlayerId(id,playerID);
         call2.enqueue(new Callback<playerId>() {
@@ -75,7 +97,7 @@ public class FirmaActivity extends AppCompatActivity {
         listItems = new ArrayList<>();
     }
     public void getFirmaData()
-    {  SharedPreferences sharedPreferences;
+    {
 
         Intent i = getIntent();
        String id = i.getStringExtra("key");
@@ -105,11 +127,8 @@ public class FirmaActivity extends AppCompatActivity {
                //    firmaArray.add(firma);
                      recyclerView.setAdapter(adapter);
 
-
                    Log.d("tag", IP.getMekanFoto());
                }
-
-
 
            }
 
@@ -124,12 +143,7 @@ public class FirmaActivity extends AppCompatActivity {
 
 
     public void signoutMethod(View view) {
-
-        sharedPreferences = this.getSharedPreferences("com..mehmetd.personelynetim", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.commit();
-        finish();
+        sharedPreferences.edit().putBoolean("flag", false).commit();
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
         startActivity(intent);
 

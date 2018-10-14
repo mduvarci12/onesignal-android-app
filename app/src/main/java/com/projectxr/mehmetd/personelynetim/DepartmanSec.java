@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ interface RetrofitService{
 
 
 public class DepartmanSec extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +70,14 @@ public class DepartmanSec extends AppCompatActivity {
                 Log.e("string arrayisize"," "+  strings.length);
 
                 ListView listView = findViewById(R.id.listview);
-                ArrayAdapter<String > adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1, strings);
-               listView.setAdapter(adapter);
+                ArrayAdapter<String > adapter = new ArrayAdapter<>(getBaseContext(),android.R.layout.simple_list_item_1, strings);
+                listView.setAdapter(adapter);
                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                    @Override
                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                        // mekanID
                     Log.e("position",strings[position]);
-                       Intent i = new Intent(getApplicationContext(),SendActivity.class);
+                       Intent i = new Intent(DepartmanSec.this,SendActivity.class);
                        i.putExtra("mekanID", mekanID);
                        i.putExtra("user_type", strings[position]);
                        startActivity(i);

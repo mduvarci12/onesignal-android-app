@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,7 +23,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class MainActivity extends AppCompatActivity{
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){}
+
+        return false;
+
+    }
+
+
+
 
     private EditText editTextEmail, editTextPassword;
     private String userKEY;
@@ -30,14 +43,21 @@ public class MainActivity extends AppCompatActivity{
 
     SharedPreferences sharedPreferences;
 
+
+
+
+    boolean signFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
+
+
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
+
 
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
@@ -57,10 +77,10 @@ public class MainActivity extends AppCompatActivity{
         String userPassword = sharedPreferences.getString("password","no" );
         String KEY = sharedPreferences.getString("userKey","no" );
 
-        if(sharedPreferences.getString("username","a") == "a")
-        {
+        signFlag = sharedPreferences.getBoolean("flag",false );
 
-        }else{
+        if(signFlag)
+        {
             Intent i = new Intent(MainActivity.this,FirmaActivity.class);
             i.putExtra("key",KEY);
             i.putExtra("playerID",playerID);
@@ -79,6 +99,9 @@ public class MainActivity extends AppCompatActivity{
 
         final String username = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
+        sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
+
+        sharedPreferences.edit().putString("txt", username).apply();
 
         if (username.isEmpty()) {
             editTextEmail.setError("Kullanıcı adı giriniz");
@@ -97,18 +120,13 @@ public class MainActivity extends AppCompatActivity{
             editTextPassword.requestFocus();
             return;
         }
-        if(username != (null))
-        {
-            Intent i = new Intent(MainActivity.this,FirmaActivity.class);
-            i.putExtra("key",userKEY);
-            startActivity(i);
-        }
 
             Call<LoginResponse> call = RetrofitClient.getInstance().getApi().userLogin(username,password);
             call.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response)
                 {
+                    sharedPreferences.edit().putBoolean("flag", true).commit();
                     LoginResponse loginResponse = response.body();
 
                         if(loginResponse.getKey()!=null)
@@ -137,5 +155,6 @@ public class MainActivity extends AppCompatActivity{
         userKEY=myKey;
 
     }
+
 
 }
