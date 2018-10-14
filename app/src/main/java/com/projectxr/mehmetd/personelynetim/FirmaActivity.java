@@ -1,9 +1,12 @@
 package com.projectxr.mehmetd.personelynetim;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,7 +66,7 @@ public class FirmaActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra("key");
 
-        String playerID = i.getStringExtra("playerID");
+        final String playerID = i.getStringExtra("playerID");
         sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
 
         String username2;
@@ -79,6 +82,7 @@ public class FirmaActivity extends AppCompatActivity {
             public void onResponse(Call<playerId> call, Response<playerId> response) {
                 //  System.out.println(userKEY);
                 //  System.out.println(playerID);
+       //         Log.e("PlayerIDGitti",playerID);
 
             }
             @Override
@@ -145,9 +149,10 @@ public class FirmaActivity extends AppCompatActivity {
 
     public void signoutMethod(View view) {
         sharedPreferences.edit().putBoolean("flag", false).commit();
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(intent);
+        finishAndRemoveTask();
 
-
+        finishActivity(1);
+        System.exit(1);
+        System.exit(0);
     }
 }

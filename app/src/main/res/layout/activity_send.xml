@@ -9,13 +9,11 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="353dp"
-        android:layout_height="440dp"
+        android:layout_width="287dp"
+        android:layout_height="324dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:elevation="40dp"
-        android:ems="10"
+        android:layout_marginTop="77dp"
         android:gravity="top|left"
         android:hint="Mesajınız"
         android:textColor="#000" />
@@ -27,7 +25,7 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="53dp"
+        android:layout_marginBottom="94dp"
         android:onClick="sendMessage2"
         android:src="@drawable/button_send" />
 
