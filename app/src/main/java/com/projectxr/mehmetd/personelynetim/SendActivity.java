@@ -1,6 +1,8 @@
 package com.projectxr.mehmetd.personelynetim;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendActivity extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     EditText text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +33,13 @@ public class SendActivity extends AppCompatActivity {
     }
     public void sendMessage2(View v)
     {
+        sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
+        String userkey = sharedPreferences.getString("userKey", "bulunamadı");
          String mekanID = getIntent().getStringExtra("mekanID");
             String userType = getIntent().getStringExtra("user_type");
         String context = String.valueOf(text.getText());
         String context2 = text.getText().toString();
-       Call<sonMessage> call = RetrofitClient.getInstance().getApi().postMessage(context2,userType,mekanID);
+       Call<sonMessage> call = RetrofitClient.getInstance().getApi().postMessage(context2,userType,mekanID,userkey);
        call.enqueue(new Callback<sonMessage>() {
            @Override
            public void onResponse(Call<sonMessage> call, Response<sonMessage> response) {

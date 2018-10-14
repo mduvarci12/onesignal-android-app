@@ -52,7 +52,8 @@ public interface RetrofitService {
     Call<sonMessage> postMessage(
             @Field("content") String context,
             @Field("user_type") String user_type,
-            @Field("firma_id") String firma_id
+            @Field("firma_id") String firma_id,
+            @Field("user_key") String user_key
 
             );
 }

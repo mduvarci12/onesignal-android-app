@@ -62,6 +62,7 @@ public class FirmaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_firma);
         Intent i = getIntent();
         String id = i.getStringExtra("key");
+
         String playerID = i.getStringExtra("playerID");
         sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
 
