@@ -1,8 +1,9 @@
 package com.projectxr.mehmetd.personelynetim.API;
 
+import com.projectxr.mehmetd.personelynetim.models.BildirimResponse;
+import com.projectxr.mehmetd.personelynetim.models.FeedBackModel;
 import com.projectxr.mehmetd.personelynetim.models.Item;
 import com.projectxr.mehmetd.personelynetim.models.LoginResponse;
-import com.projectxr.mehmetd.personelynetim.models.departmanModel;
 import com.projectxr.mehmetd.personelynetim.models.playerId;
 import com.projectxr.mehmetd.personelynetim.models.sonMessage;
 
@@ -11,18 +12,17 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Url;
 
 public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("createuser")
     Call<ResponseBody> createUser(
-        @Field("email") String email,
-        @Field("password") String password,
-        @Field("name") String name,
-        @Field("school") String school
-        );
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("name") String name,
+            @Field("school") String school
+    );
 
     @FormUrlEncoded
     @POST("users/login")
@@ -53,7 +53,20 @@ public interface RetrofitService {
             @Field("content") String context,
             @Field("user_type") String user_type,
             @Field("firma_id") String firma_id,
-            @Field("user_key") String user_key
+            @Field("user_key") String user_key,
+            @Field("device_id") String deviceId
+    );
 
-            );
+    @FormUrlEncoded
+    @POST("/bildirimlerim")
+    Call<BildirimResponse> bildirimlerim(
+            @Field("player_id") String PlayerID
+    );
+    @FormUrlEncoded
+    @POST("/feedback")
+    Call<FeedBackModel> feedback(
+            @Field("bildirim_id") String bildirimID
+    );
+
+
 }

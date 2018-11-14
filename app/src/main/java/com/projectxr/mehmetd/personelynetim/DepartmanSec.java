@@ -1,21 +1,16 @@
 package com.projectxr.mehmetd.personelynetim;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
 
+import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,9 +27,7 @@ interface RetrofitService{
     Call<ResponseBody> listRepos();//function to call api
 }
 
-
 public class DepartmanSec extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +44,6 @@ public class DepartmanSec extends AppCompatActivity {
                 Log.e("departmanlar", response.body().toString());
                 String result = response.body().toString();
 
-
                 String asd = result.replace("[", "");
                 String dsa = asd.replace("]", "");
                 String das = dsa.replace("\"","");
@@ -59,15 +51,11 @@ public class DepartmanSec extends AppCompatActivity {
                 final String[] strings = das.split(",");
 
 
-                String[] string;
-                string = strings;
-
-
                 // ADAPTERDE KULLANILACAK ARRAY strings
-                Log.e("string arrayi0", strings[0]);
-                Log.e("string arrayi1", strings[1]);
-                Log.e("string arrayi2", strings[2]);
-                Log.e("string arrayisize"," "+  strings.length);
+        //        Log.e("string arrayi0", strings[0]);
+        //        Log.e("string arrayi1", strings[1]);
+         //       Log.e("string arrayi2", strings[2]);
+          //      Log.e("string arrayisize"," "+  strings.length);
 
                 ListView listView = findViewById(R.id.listview);
                 ArrayAdapter<String > adapter = new ArrayAdapter<>(getBaseContext(),android.R.layout.simple_list_item_1, strings);

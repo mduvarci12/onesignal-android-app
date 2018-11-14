@@ -1,12 +1,8 @@
 package com.projectxr.mehmetd.personelynetim;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.projectxr.mehmetd.personelynetim.API.RetrofitClient;
@@ -28,10 +23,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-
-
-
 class Firmam
 {
     SharedPreferences sharedPreferences;
@@ -50,7 +41,6 @@ public class FirmaActivity extends AppCompatActivity {
         return false;
         // Disable back button..............
     }
-
     SharedPreferences sharedPreferences;
 
     private RecyclerView recyclerView;
@@ -66,7 +56,7 @@ public class FirmaActivity extends AppCompatActivity {
         Intent i = getIntent();
         String id = i.getStringExtra("key");
 
-        final String playerID = i.getStringExtra("playerID");
+        String playerID = i.getStringExtra("playerID");
         sharedPreferences = this.getSharedPreferences("com.projectxr.mehmetd.personelynetim", Context.MODE_PRIVATE);
 
         String username2;
@@ -74,15 +64,14 @@ public class FirmaActivity extends AppCompatActivity {
        username2=  username2.toUpperCase();
         Toast.makeText(getApplicationContext(),"MuhattAPP'a Hoşgeldin " + username2,Toast.LENGTH_LONG).show();
 
-
-
+        playerID = sharedPreferences.getString("playerID", "null1");
         Call<playerId> call2 = RetrofitClient.getInstance().getApi().setPlayerId(id,playerID);
+        Log.e("playerID Firma", playerID);
         call2.enqueue(new Callback<playerId>() {
             @Override
             public void onResponse(Call<playerId> call, Response<playerId> response) {
-                //  System.out.println(userKEY);
-                //  System.out.println(playerID);
-       //         Log.e("PlayerIDGitti",playerID);
+
+
 
             }
             @Override
@@ -90,8 +79,6 @@ public class FirmaActivity extends AppCompatActivity {
 
             }
         });
-
-        getFirmaData();
 
 
 
@@ -101,6 +88,26 @@ public class FirmaActivity extends AppCompatActivity {
 
         listItems = new ArrayList<>();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listItems.clear();
+        getFirmaData();
+    }
+
+    @Override
+    protected void onPause() {
+        listItems.clear();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        listItems.clear();
+        super.onStop();
+    }
+
     public void getFirmaData()
     {
 
@@ -112,17 +119,20 @@ public class FirmaActivity extends AppCompatActivity {
            @Override
            public void onResponse(Call<Item> call, Response<Item> response) {
                int a=0;
-           //    List<ItemResponse> firmalar = response.body().getFirmalar();
+           List<ItemResponse> firmalar = response.body().getFirmalar();
+               String bosmu = response.body().toString();
                List<ItemResponse> items = response.body().getFirmalar();
+               if (response.body().getFirmalar().isEmpty())
+               {
+                   Intent i1 = new Intent(FirmaActivity.this,bildirimlerim.class);
+                   startActivity(i1);
+               }
+
                for (a=0;a<items.size();a++)
                {
-                   Firmam firma = new Firmam();
 
                    ItemResponse IP = items.get(a);
 
-                   firma.foto = IP.getMekanFoto();
-                   firma.firmaAdı = IP.getTitle();
-                   firma.firmaId = IP.getMekanId();
 
                    ListItem list = new ListItem(IP.getMekanFoto(),IP.getTitle(),IP.getMekanId());
 
@@ -134,9 +144,7 @@ public class FirmaActivity extends AppCompatActivity {
 
                    Log.d("tag", IP.getMekanFoto());
                }
-
            }
-
            @Override
            public void onFailure(Call<Item> call, Throwable t) {
 
@@ -146,8 +154,9 @@ public class FirmaActivity extends AppCompatActivity {
 
     }
 
-
     public void signoutMethod(View view) {
+      signoutMethod2();
+    }  public void signoutMethod2(){
         sharedPreferences.edit().putBoolean("flag", false).commit();
         finishAndRemoveTask();
 

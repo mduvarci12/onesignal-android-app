@@ -10,7 +10,7 @@
     <EditText
         android:id="@+id/editText"
         android:layout_width="287dp"
-        android:layout_height="324dp"
+        android:layout_height="87dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="77dp"
@@ -23,9 +23,8 @@
         android:id="@+id/imageButton"
         android:layout_width="49dp"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
         android:onClick="sendMessage2"
         android:src="@drawable/button_send" />
 
