@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitClient {
-   public static final String BASE_URL = "http://api.muhattapp.com/";
+   public static final String BASE_URL = "http://server.8black.co:3000/";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
