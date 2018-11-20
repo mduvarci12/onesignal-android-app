@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements  OSSubscriptionOb
         if (!stateChanges.getFrom().getSubscribed() &&
                 stateChanges.getTo().getSubscribed()) {
             new AlertDialog.Builder(this)
-                    .setMessage("You've successfully subscribed to push notifications!")
+                    .setMessage("Bildirimlere başarı ile kayıt olundu!")
                     .show();
             // get player ID
             playerID = stateChanges.getTo().getUserId();
